@@ -24,40 +24,16 @@ public class Reserva {
     @JoinColumn(name = "loja_retirada_id")
     private Loja lojaRetirada;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCanalOrigem() {
-        return canalOrigem;
-    }
-
     public void setCanalOrigem(String canalOrigem) {
         this.canalOrigem = canalOrigem;
-    }
-
-    public PeriodoLocacao getPeriodo() {
-        return periodo;
     }
 
     public void setPeriodo(PeriodoLocacao periodo) {
         this.periodo = periodo;
     }
 
-    public LocalDate getDataRetirada() {
-        return dataRetirada;
-    }
-
     public void setDataRetirada(LocalDate dataRetirada) {
         this.dataRetirada = dataRetirada;
-    }
-
-    public Loja getLojaRetirada() {
-        return lojaRetirada;
     }
 
     public void setLojaRetirada(Loja lojaRetirada) {

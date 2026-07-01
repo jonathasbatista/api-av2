@@ -10,8 +10,4 @@ public enum PeriodoLocacao {
     PeriodoLocacao(int dias) {
         this.dias = dias;
     }
-
-    public int getDias() {
-        return dias;
-    }
 }

@@ -16,18 +16,6 @@ public class Loja {
     private String cidade;
     private boolean emAeroporto;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -38,10 +26,6 @@ public class Loja {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
-    }
-
-    public boolean isEmAeroporto() {
-        return emAeroporto;
     }
 
     public void setEmAeroporto(boolean emAeroporto) {

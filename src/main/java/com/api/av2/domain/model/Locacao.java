@@ -27,56 +27,24 @@ public class Locacao {
     @JoinColumn(name = "carro_id")
     private Carro carro;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getDataInicio() {
-        return dataInicio;
-    }
-
     public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
-    }
-
-    public boolean isComMotorista() {
-        return comMotorista;
     }
 
     public void setComMotorista(boolean comMotorista) {
         this.comMotorista = comMotorista;
     }
 
-    public boolean isPagamentoAntecipado() {
-        return pagamentoAntecipado;
-    }
-
     public void setPagamentoAntecipado(boolean pagamentoAntecipado) {
         this.pagamentoAntecipado = pagamentoAntecipado;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
     }
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public PeriodoLocacao getPeriodo() {
-        return periodo;
-    }
-
     public void setPeriodo(PeriodoLocacao periodo) {
         this.periodo = periodo;
-    }
-
-    public Carro getCarro() {
-        return carro;
     }
 
     public void setCarro(Carro carro) {

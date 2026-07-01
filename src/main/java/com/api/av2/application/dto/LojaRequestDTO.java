@@ -12,23 +12,11 @@ public class LojaRequestDTO {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
     public boolean isEmAeroporto() {
         return emAeroporto;
-    }
-
-    public void setEmAeroporto(boolean emAeroporto) {
-        this.emAeroporto = emAeroporto;
     }
 }
