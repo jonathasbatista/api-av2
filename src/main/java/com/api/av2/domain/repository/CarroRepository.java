@@ -9,8 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CarroRepository extends JpaRepository<Carro, Long> {
-
-    List<Carro> findByStatusAndLojaAtual_Cidade(StatusCarro status, String cidade);
-
+    List<Carro> findByStatusAndLojaAtualCidade(StatusCarro status, String cidade);
     long countByStatus(StatusCarro status);
 }

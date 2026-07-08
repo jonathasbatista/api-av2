@@ -15,6 +15,8 @@ public class Carro {
     private String placa;
     private String modelo;
     private String marca;
+    private String tipo;
+    private Double valorDiaria;
 
     @Enumerated(EnumType.STRING)
     private StatusCarro status;
@@ -22,6 +24,10 @@ public class Carro {
     @ManyToOne
     @JoinColumn(name = "loja_id")
     private Loja lojaAtual;
+
+    public Double getValorDiaria() {
+        return valorDiaria;
+    }
 
     public void setPlaca(String placa) {
         this.placa = placa;
@@ -41,5 +47,13 @@ public class Carro {
 
     public void setLojaAtual(Loja lojaAtual) {
         this.lojaAtual = lojaAtual;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setValorDiaria(Double valorDiaria) {
+        this.valorDiaria = valorDiaria;
     }
 }

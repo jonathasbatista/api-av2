@@ -7,6 +7,7 @@ public class LojaRequestDTO {
     private String nome;
     private String cidade;
     private boolean emAeroporto;
+    private Long clienteId;
 
     public String getNome() {
         return nome;

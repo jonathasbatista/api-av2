@@ -18,7 +18,7 @@ public class Locacao {
     private LocalDate dataInicio;
     private boolean comMotorista;
     private boolean pagamentoAntecipado;
-    private BigDecimal valorTotal;
+    private Double valorTotal;
 
     @Enumerated(EnumType.STRING)
     private PeriodoLocacao periodo;
@@ -26,6 +26,10 @@ public class Locacao {
     @ManyToOne
     @JoinColumn(name = "carro_id")
     private Carro carro;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
@@ -39,15 +43,15 @@ public class Locacao {
         this.pagamentoAntecipado = pagamentoAntecipado;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
+    public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public void setPeriodo(PeriodoLocacao periodo) {
-        this.periodo = periodo;
-    }
+    public void setPeriodo(PeriodoLocacao periodo) {this.periodo = periodo;}
 
     public void setCarro(Carro carro) {
         this.carro = carro;
     }
+
+    public void setCliente(Cliente cliente) {this.cliente = cliente;}
 }

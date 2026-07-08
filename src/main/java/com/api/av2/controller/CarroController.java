@@ -5,10 +5,9 @@ import com.api.av2.application.service.CarroService;
 import com.api.av2.domain.model.Carro;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/carros")
@@ -21,8 +20,28 @@ public class CarroController {
     }
 
     @PostMapping
-    public ResponseEntity<Carro> criarCarro(@RequestBody CarroRequestDTO dto) {
-        Carro carro = carroService.criarCarro(dto);
-        return new ResponseEntity<>(carro, HttpStatus.CREATED);
+    public ResponseEntity<Carro> criar(@RequestBody CarroRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(carroService.salvar(dto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Carro>> listarTodos() {
+        return ResponseEntity.ok(carroService.listarTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Carro> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(carroService.buscarPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Carro> atualizar(@PathVariable Long id, @RequestBody CarroRequestDTO dto) {
+        return ResponseEntity.ok(carroService.atualizar(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        carroService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

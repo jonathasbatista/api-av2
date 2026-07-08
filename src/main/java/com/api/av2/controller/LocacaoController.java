@@ -21,8 +21,8 @@ public class LocacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Locacao> realizarLocacao(@RequestBody LocacaoRequestDTO dto) {
-        Locacao locacao = locacaoService.efetuarLocacao(dto);
+    public ResponseEntity<Locacao> efetuarLocacao(@RequestBody LocacaoRequestDTO dto) {
+        Locacao locacao = locacaoService.realizarLocacao(dto);
         return new ResponseEntity<>(locacao, HttpStatus.CREATED);
     }
 }

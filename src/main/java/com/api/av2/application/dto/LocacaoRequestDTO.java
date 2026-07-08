@@ -1,18 +1,21 @@
 package com.api.av2.application.dto;
 
+import com.api.av2.domain.model.PeriodoLocacao;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
 public class LocacaoRequestDTO {
-    private Long lojaId;
+    private Long lojaRetiradaId;
+    private Long clienteId;
     private LocalDate dataInicio;
-    private boolean comMotorista;
-    private String periodo;
+    private Boolean comMotorista;
+    private Boolean pagamentoAntecipado;
+    private PeriodoLocacao periodo;
 
     public Long getLojaId() {
-        return lojaId;
+        return lojaRetiradaId;
     }
 
     public LocalDate getDataInicio() {
@@ -23,7 +26,13 @@ public class LocacaoRequestDTO {
         return comMotorista;
     }
 
-    public String getPeriodo() {
+    public PeriodoLocacao getPeriodo() {
         return periodo;
     }
+
+    public Long getLojaRetiradaId() {return lojaRetiradaId;}
+
+    public Long getClienteId() {return clienteId;}
+
+    public Boolean getPagamentoAntecipado() {return pagamentoAntecipado;}
 }

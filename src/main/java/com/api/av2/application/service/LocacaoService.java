@@ -3,6 +3,7 @@ package com.api.av2.application.service;
 import com.api.av2.application.dto.LocacaoRequestDTO;
 import com.api.av2.domain.model.*;
 import com.api.av2.domain.repository.CarroRepository;
+import com.api.av2.domain.repository.ClienteRepository;
 import com.api.av2.domain.repository.LocacaoRepository;
 import com.api.av2.domain.repository.LojaRepository;
 import org.springframework.stereotype.Service;
@@ -15,34 +16,53 @@ public class LocacaoService {
 
     private final LocacaoRepository locacaoRepository;
     private final CarroRepository carroRepository;
+    private final ClienteRepository clienteRepository;
     private final LojaRepository lojaRepository;
 
-    public LocacaoService(LocacaoRepository locacaoRepository, CarroRepository carroRepository, LojaRepository lojaRepository) {
+    public LocacaoService(LocacaoRepository locacaoRepository, CarroRepository carroRepository, ClienteRepository clienteRepository, LojaRepository lojaRepository) {
         this.locacaoRepository = locacaoRepository;
         this.carroRepository = carroRepository;
+        this.clienteRepository = clienteRepository;
         this.lojaRepository = lojaRepository;
     }
 
-    public Locacao efetuarLocacao(LocacaoRequestDTO dto) {
-        Loja loja = lojaRepository.findById(dto.getLojaId()).orElseThrow();
+    public Locacao realizarLocacao(LocacaoRequestDTO dto) {
+        Cliente cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-        List<Carro> carrosDisponiveis = carroRepository.findByStatusAndLojaAtual_Cidade(StatusCarro.LIVRE, loja.getCidade());
+        Loja loja = lojaRepository.findById(dto.getLojaRetiradaId())
+                .orElseThrow(() -> new RuntimeException("Loja não encontrada"));
+        String cidade = loja.getCidade();
 
-        if (carrosDisponiveis.isEmpty()) {
-            throw new RuntimeException("Nenhum carro disponível na cidade.");
+        List<Carro> carrosLivres = carroRepository.findByStatusAndLojaAtualCidade(StatusCarro.LIVRE, cidade);
+
+        if (carrosLivres.isEmpty()) {
+            throw new RuntimeException("Nenhum carro disponível na cidade");
         }
 
-        Carro carroAlocado = carrosDisponiveis.get(0);
+        Carro carroAlocado = carrosLivres.get(0);
         carroAlocado.setStatus(StatusCarro.ALUGADO);
         carroRepository.save(carroAlocado);
 
+        int dias = 0;
+        if (dto.getPeriodo() == PeriodoLocacao.SETE_DIAS) {
+            dias = 7;
+        } else if (dto.getPeriodo() == PeriodoLocacao.QUINZE_DIAS) {
+            dias = 15;
+        } else if (dto.getPeriodo() == PeriodoLocacao.TRINTA_DIAS) {
+            dias = 30;
+        }
+
+        double valorCalculado = carroAlocado.getValorDiaria() * dias;
+
         Locacao locacao = new Locacao();
+        locacao.setCliente(cliente);
         locacao.setCarro(carroAlocado);
         locacao.setDataInicio(dto.getDataInicio());
+        locacao.setPeriodo(dto.getPeriodo());
+        locacao.setPagamentoAntecipado(dto.getPagamentoAntecipado());
         locacao.setComMotorista(dto.getComMotorista());
-        locacao.setPagamentoAntecipado(true);
-        locacao.setPeriodo(PeriodoLocacao.valueOf(dto.getPeriodo()));
-        locacao.setValorTotal(new BigDecimal("1000.00"));
+        locacao.setValorTotal(valorCalculado);
 
         return locacaoRepository.save(locacao);
     }
